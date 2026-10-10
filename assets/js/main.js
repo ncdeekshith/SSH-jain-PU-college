@@ -43,6 +43,18 @@ document.addEventListener('DOMContentLoaded',()=>{
     facultyRoot.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
   }
 
+  const achieverRoot=document.querySelector('[data-achiever-groups]');
+  if(achieverRoot&&window.ACHIEVER_GROUPS){
+    achieverRoot.innerHTML=window.ACHIEVER_GROUPS.map(group=>{
+      const cards=group.people.map(person=>{
+        const cropX=-(person[2]-120);
+        const cropY=-(person[3]-115);
+        return `<article class="student-card"><div class="student-portrait" role="img" aria-label="Portrait of ${person[0]}" style="--crop-x:${cropX}px;--crop-y:${cropY}px"></div><div class="student-card-copy"><b>${person[0]}</b><span>${person[1]}</span><small>${group.subtitle}</small></div></article>`;
+      }).join('');
+      return `<section class="achiever-group"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title}</h4></div><small>Swipe or scroll →</small></div><div class="achiever-track">${cards}</div></section>`;
+    }).join('');
+  }
+
   document.querySelector('[data-enquiry-form]')?.addEventListener('submit',event=>{
     event.preventDefault();
     const message=event.currentTarget.querySelector('[data-form-message]');
