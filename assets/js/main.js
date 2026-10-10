@@ -51,44 +51,43 @@ document.addEventListener('DOMContentLoaded',()=>{
         const cropY=-(person[3]-115);
         return `<article class="student-card"><div class="student-portrait" role="img" aria-label="Portrait of ${person[0]}" style="--crop-x:${cropX}px;--crop-y:${cropY}px"></div><div class="student-card-copy"><b>${person[0]}</b><span>${person[1]}</span><small>${group.subtitle}</small></div></article>`;
       }).join('');
-      return `<section class="achiever-group"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title}</h4></div><small>Slides automatically · swipe or scroll →</small></div><div class="achiever-track" tabindex="0" aria-label="${group.title} automatic carousel">${cards}</div></section>`;
+      return `<section class="achiever-group"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title}</h4></div><small>Continuous automatic slider · swipe or scroll →</small></div><div class="achiever-track" tabindex="0" aria-label="${group.title} continuous automatic carousel">${cards}</div></section>`;
     }).join('');
 
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       achieverRoot.querySelectorAll('.achiever-track').forEach(track=>{
-        let timer;
         let inView=false;
         let spriteReady=false;
-        const stop=()=>{window.clearInterval(timer);timer=undefined};
-        const start=()=>{
-          stop();
-          if(!inView||document.hidden||!spriteReady) return;
-          timer=window.setInterval(()=>{
-            const card=track.querySelector('.student-card');
-            if(!card||track.scrollWidth<=track.clientWidth) return;
-            const gap=parseFloat(window.getComputedStyle(track).columnGap)||14;
-            const step=card.getBoundingClientRect().width+gap;
-            const maxScroll=track.scrollWidth-track.clientWidth;
-            const next=track.scrollLeft+step;
-            track.scrollTo({left:next>=maxScroll-4?0:next,behavior:'smooth'});
-          },3200);
-        };
-        track.dataset.autoplay='true';
-        track.addEventListener('mouseenter',stop);
-        track.addEventListener('mouseleave',start);
-        track.addEventListener('focusin',stop);
-        track.addEventListener('focusout',start);
-        track.addEventListener('touchstart',stop,{passive:true});
-        track.addEventListener('touchend',()=>window.setTimeout(start,1600),{passive:true});
-        document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+        let interacting=false;
+        let lastTime=0;
+        const originals=[...track.children];
+        originals.forEach(card=>{
+          const clone=card.cloneNode(true);
+          clone.setAttribute('aria-hidden','true');
+          track.appendChild(clone);
+        });
+        track.dataset.autoplay='continuous';
+        track.addEventListener('pointerdown',()=>{interacting=true},{passive:true});
+        track.addEventListener('pointerup',()=>{interacting=false},{passive:true});
+        track.addEventListener('pointercancel',()=>{interacting=false},{passive:true});
         const carouselObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
           inView=entry.isIntersecting;
-          inView?start():stop();
         }),{threshold:.25});
         carouselObserver.observe(track);
         const sprite=new Image();
-        sprite.addEventListener('load',()=>{spriteReady=true;start()},{once:true});
+        sprite.addEventListener('load',()=>{spriteReady=true},{once:true});
         sprite.src='assets/images/achievers-2025-26-web.jpg';
+        const move=timestamp=>{
+          const elapsed=lastTime?Math.min(timestamp-lastTime,64):0;
+          lastTime=timestamp;
+          if(inView&&spriteReady&&!document.hidden&&!interacting){
+            track.scrollLeft+=elapsed*.045;
+            const loopWidth=track.scrollWidth/2;
+            if(track.scrollLeft>=loopWidth) track.scrollLeft-=loopWidth;
+          }
+          window.requestAnimationFrame(move);
+        };
+        window.requestAnimationFrame(move);
       });
     }
   }
