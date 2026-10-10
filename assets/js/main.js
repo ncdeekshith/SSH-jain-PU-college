@@ -58,10 +58,11 @@ document.addEventListener('DOMContentLoaded',()=>{
       achieverRoot.querySelectorAll('.achiever-track').forEach(track=>{
         let timer;
         let inView=false;
+        let spriteReady=false;
         const stop=()=>{window.clearInterval(timer);timer=undefined};
         const start=()=>{
           stop();
-          if(!inView||document.hidden) return;
+          if(!inView||document.hidden||!spriteReady) return;
           timer=window.setInterval(()=>{
             const card=track.querySelector('.student-card');
             if(!card||track.scrollWidth<=track.clientWidth) return;
@@ -85,6 +86,9 @@ document.addEventListener('DOMContentLoaded',()=>{
           inView?start():stop();
         }),{threshold:.25});
         carouselObserver.observe(track);
+        const sprite=new Image();
+        sprite.addEventListener('load',()=>{spriteReady=true;start()},{once:true});
+        sprite.src='assets/images/achievers-2025-26-web.jpg';
       });
     }
   }
