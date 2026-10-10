@@ -51,8 +51,42 @@ document.addEventListener('DOMContentLoaded',()=>{
         const cropY=-(person[3]-115);
         return `<article class="student-card"><div class="student-portrait" role="img" aria-label="Portrait of ${person[0]}" style="--crop-x:${cropX}px;--crop-y:${cropY}px"></div><div class="student-card-copy"><b>${person[0]}</b><span>${person[1]}</span><small>${group.subtitle}</small></div></article>`;
       }).join('');
-      return `<section class="achiever-group"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title}</h4></div><small>Swipe or scroll →</small></div><div class="achiever-track">${cards}</div></section>`;
+      return `<section class="achiever-group"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title}</h4></div><small>Slides automatically · swipe or scroll →</small></div><div class="achiever-track" tabindex="0" aria-label="${group.title} automatic carousel">${cards}</div></section>`;
     }).join('');
+
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      achieverRoot.querySelectorAll('.achiever-track').forEach(track=>{
+        let timer;
+        let inView=false;
+        const stop=()=>{window.clearInterval(timer);timer=undefined};
+        const start=()=>{
+          stop();
+          if(!inView||document.hidden) return;
+          timer=window.setInterval(()=>{
+            const card=track.querySelector('.student-card');
+            if(!card||track.scrollWidth<=track.clientWidth) return;
+            const gap=parseFloat(window.getComputedStyle(track).columnGap)||14;
+            const step=card.getBoundingClientRect().width+gap;
+            const maxScroll=track.scrollWidth-track.clientWidth;
+            const next=track.scrollLeft+step;
+            track.scrollTo({left:next>=maxScroll-4?0:next,behavior:'smooth'});
+          },3200);
+        };
+        track.dataset.autoplay='true';
+        track.addEventListener('mouseenter',stop);
+        track.addEventListener('mouseleave',start);
+        track.addEventListener('focusin',stop);
+        track.addEventListener('focusout',start);
+        track.addEventListener('touchstart',stop,{passive:true});
+        track.addEventListener('touchend',()=>window.setTimeout(start,1600),{passive:true});
+        document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+        const carouselObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+          inView=entry.isIntersecting;
+          inView?start():stop();
+        }),{threshold:.25});
+        carouselObserver.observe(track);
+      });
+    }
   }
 
   document.querySelector('[data-enquiry-form]')?.addEventListener('submit',event=>{
