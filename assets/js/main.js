@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const group=window.STAFF_GROUPS.find(item=>item.title===title);
       if(!group) return '';
       const cards=group.people.map(person=>`<article class="faculty-card"><img src="assets/images/${person[3]}" alt="Portrait of ${person[0]}" loading="lazy"><div><b>${person[0]}</b><span>${person[1]}</span><small>${person[2]||''}</small></div></article>`).join('');
-      return `<section class="faculty-group reveal"><h3>${labels[title]} <small>— swipe or scroll →</small></h3><div class="faculty-track">${cards}</div></section>`;
+      return `<section class="faculty-group reveal"><div class="faculty-group-heading"><h3>${labels[title]}</h3><span>${group.people.length} members</span></div><div class="faculty-track">${cards}</div></section>`;
     }).join('');
     facultyRoot.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
   }
@@ -91,6 +91,27 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
     }
   }
+
+  const eventStories={
+    freshers:{category:'Campus culture',title:'Freshers’ Welcome',image:'assets/images/event-freshers-2026.jpg',alt:'Freshers welcome cultural programme',copy:'A welcoming celebration designed to help new students meet their peers, connect with faculty and experience the creative energy of campus life through music, cultural performances and student interaction.'},
+    science:{category:'Academic',title:'Science & Laboratory Day',image:'assets/images/subject-physics.jpg',alt:'Students participating in a science laboratory activity',copy:'An activity-led academic day where students explore practical demonstrations, laboratory methods and the real-world applications of Physics, Chemistry and Biology.'},
+    sports:{category:'Sports',title:'Inter-College Sports Meet',image:'assets/images/sports-achievers-2026.jpg',alt:'Students celebrating a college sports achievement',copy:'A celebration of fitness, teamwork and disciplined competition, giving students opportunities to represent the college across athletics, team sports and inter-college events.'}
+  };
+  const eventDialog=document.querySelector('[data-event-dialog]');
+  document.querySelectorAll('[data-event-open]').forEach(button=>button.addEventListener('click',()=>{
+    const story=eventStories[button.dataset.eventOpen];
+    if(!eventDialog||!story) return;
+    const image=eventDialog.querySelector('[data-event-image]');
+    image.src=story.image; image.alt=story.alt;
+    eventDialog.querySelector('[data-event-category]').textContent=story.category;
+    eventDialog.querySelector('[data-event-title]').textContent=story.title;
+    eventDialog.querySelector('[data-event-copy]').textContent=story.copy;
+    eventDialog.showModal();
+  }));
+  eventDialog?.querySelector('[data-event-close]')?.addEventListener('click',()=>eventDialog.close());
+  eventDialog?.addEventListener('click',event=>{if(event.target===eventDialog) eventDialog.close()});
+
+  if(location.hash) requestAnimationFrame(()=>setTimeout(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}),120));
 
   document.querySelector('[data-enquiry-form]')?.addEventListener('submit',event=>{
     event.preventDefault();
