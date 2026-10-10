@@ -121,3 +121,61 @@ footer{background:#040d18;border-top:1px solid rgba(211,173,97,.4)}
 .testimonial-cards article:nth-child(1) .testimonial-portrait{--crop-x:-1292px!important;--crop-y:-476px!important}
 .testimonial-cards article:nth-child(2) .testimonial-portrait{--crop-x:-2794px!important;--crop-y:-405px!important}
 .testimonial-cards article:nth-child(3) .testimonial-portrait{--crop-x:-2517px!important;--crop-y:-405px!important}
+
+/* Final mobile system: balanced scale, compact rhythm and dependable tap targets */
+@media(max-width:900px){
+  :root{--mobile-gutter:18px;--mobile-radius:8px;--mobile-tap:48px}
+  body{font-size:15px}
+  .site-header,.site-header.scrolled{top:0;height:72px;padding:9px var(--mobile-gutter);border-radius:0}
+  .brand{gap:11px;min-width:0}.brand img,.site-header.scrolled .brand img{width:48px;height:48px}.brand b{font-size:clamp(.86rem,2.6vw,1.02rem);line-height:1.05}.brand small{display:none}
+  .header-apply{display:none}.menu-toggle{width:48px;height:48px;border-radius:5px}.menu-toggle span{width:20px}
+  .main-nav a{min-height:var(--mobile-tap);display:flex;align-items:center}
+  .hero{min-height:auto;padding:104px var(--mobile-gutter) 24px}.hero-grid{min-height:auto;max-width:760px}.hero-copy::before{left:-28px;top:-26px;width:108%;height:330px}
+  .hero h1{max-width:10ch;font-size:clamp(3.3rem,11.5vw,5.25rem);line-height:1.06;letter-spacing:-.038em;margin:12px 0 14px;padding-bottom:.08em}
+  .hero-lead{max-width:640px;font-size:.96rem;line-height:1.58}.hero-actions{margin-top:22px}.button{min-height:var(--mobile-tap)}
+  .hero-proof{position:relative;left:auto;right:auto;bottom:auto;margin-top:26px}.hero-proof div{min-height:76px;padding:12px 10px}.hero-proof strong{font-size:1.16rem}.hero-proof span{font-size:.5rem;line-height:1.2}
+  .section-dock{display:flex;width:100%;margin:0;padding:9px var(--mobile-gutter);gap:8px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;box-shadow:0 9px 24px rgba(7,23,43,.08)}
+  .section-dock a,.section-dock a:nth-child(n){flex:0 0 auto;min-width:auto;min-height:42px;padding:9px 13px;border:1px solid var(--line)!important;font-size:.64rem;scroll-snap-align:start}.section-dock span{display:inline;margin-right:5px}
+  .section{padding:66px var(--mobile-gutter)}.section-intro{margin-bottom:32px}.section-intro h2,.impact-heading h2,.apply h2{font-size:clamp(2.55rem,8.6vw,4rem);line-height:1.1;letter-spacing:-.032em}.section-intro>p:last-child{font-size:.94rem;line-height:1.6}
+  .kicker{font-size:.62rem;letter-spacing:.12em}.kicker::before{width:24px}
+  .icon-chip,.placeholder-icon{width:44px;height:44px;min-width:44px;border-radius:4px;font-size:1rem}
+  .vision-grid{gap:12px}.vision-card{padding:25px}.vision-card .card-number{font-size:2.15rem}.vision-card h3{font-size:1.55rem}
+  .leader-card,.leader-card.reverse{min-height:0}.leader-image img{height:clamp(300px,58vw,440px)}.leader-content{padding:30px}.leader-content h3{font-size:clamp(2rem,6vw,2.8rem)}
+  .result-summary>div{padding:20px}.result-summary strong{font-size:clamp(2.8rem,8vw,4rem)}.result-summary span{font-size:.61rem}.achievement-card{min-height:360px;padding:27px}.achievement-metric{gap:16px}.achievement-metric strong{font-size:clamp(4rem,11vw,5.4rem)}.achievement-metric small{font-size:.78rem}.achievement-card h3{font-size:1.9rem}
+  .sports-showcase{min-height:0}.sports-photo img{height:clamp(300px,55vw,430px)}.sports-copy{padding:36px 28px}.sports-copy h3{font-size:clamp(2.15rem,7vw,3.3rem)}
+  .impact-heading h2{padding-bottom:.12em}.impact-grid article{min-height:370px}.impact-grid strong{font-size:clamp(3.3rem,10vw,5rem)}
+  .stream-card{padding:27px}.stream-code{font-size:clamp(2.7rem,8vw,4rem)}.stream-card>a{min-height:46px;display:inline-flex;align-items:center}
+  .facility-main,.facility-side{min-height:380px}.facility-grid h3{font-size:clamp(2.15rem,7vw,3.2rem)}
+  .note-card img{height:clamp(290px,54vw,420px)}.note-card div{padding:28px}.note-card h2{font-size:clamp(2rem,6vw,2.75rem)}
+  .faculty-groups{gap:52px}.faculty-track{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.faculty-card div{min-height:116px;padding:13px}.faculty-card b{font-size:.88rem}.faculty-card span,.faculty-card small{font-size:.63rem}.faculty-group-heading h3{font-size:1.48rem}.faculty-group-heading span{font-size:.56rem}
+  .testimonial-cards{grid-template-columns:1fr 1fr}.testimonial-cards article,.testimonial-cards article:last-child{grid-column:auto;min-height:0;padding:24px}.testimonial-cards article:last-child{grid-column:1/-1}.testimonial-portrait{width:76px;height:76px;flex-basis:76px}.testimonial-cards blockquote{margin:24px 0;font-size:1rem}
+  .events-grid{grid-template-columns:1fr 1fr}.event-card img{height:210px}.event-card h3{font-size:1.4rem}.event-dialog-close{width:44px;height:44px}
+  .footer-top{gap:30px}.mobile-apply a{min-height:48px}
+}
+
+@media(max-width:640px){
+  :root{--mobile-gutter:15px}
+  body{font-size:14px}.site-header,.site-header.scrolled{height:66px;padding:8px 12px}.brand{gap:9px}.brand img,.site-header.scrolled .brand img{width:43px;height:43px}.brand b{font-size:.8rem}.menu-toggle{width:46px;height:46px}
+  .hero{padding:86px var(--mobile-gutter) 18px}.hero-copy::before{left:-24px;top:-16px;height:270px}.hero h1{max-width:9ch;font-size:clamp(2.75rem,13vw,3.8rem);line-height:1.08;margin:10px 0 12px}.hero-lead{font-size:.88rem;line-height:1.52;padding-left:13px}.hero-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:18px}.hero-actions .button{width:100%;min-height:48px;font-size:.62rem}
+  .hero-proof{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:18px}.hero-proof div{min-height:68px;padding:10px}.hero-proof strong{font-size:1.05rem}.hero-proof span{font-size:.47rem;letter-spacing:.07em}
+  .section-dock{padding:8px 12px}.section-dock a,.section-dock a:nth-child(n){min-height:40px;padding:8px 11px;font-size:.59rem}
+  .section{padding:54px var(--mobile-gutter)}.section-intro{margin-bottom:26px}.section-intro h2,.impact-heading h2,.apply h2{font-size:clamp(2.15rem,10.8vw,3.05rem);line-height:1.12}.section-intro>p:last-child{font-size:.88rem}.kicker{font-size:.58rem}.kicker::before{width:20px}
+  .icon-chip,.placeholder-icon{width:42px;height:42px;min-width:42px;font-size:.95rem}
+  .vision-card{padding:22px}.vision-card .card-number{font-size:1.95rem;margin-bottom:10px}.vision-card .icon-chip{width:42px;height:42px}.vision-card h3{font-size:1.42rem;margin-top:12px}.vision-card p{font-size:.88rem;line-height:1.55}
+  .leader-image img{height:300px}.leader-image figcaption,.note-card figcaption{padding:15px 18px}.leader-content{padding:24px}.leader-content h3{font-size:1.85rem}.leader-content p{font-size:.9rem;line-height:1.62}
+  .result-summary>div{padding:16px 13px}.result-summary strong{font-size:2.75rem}.result-summary span{font-size:.52rem}.achievement-card{min-height:315px;padding:22px}.achievement-metric{align-items:center;gap:13px}.achievement-metric strong{font-size:3.8rem}.achievement-metric small{font-size:.7rem;max-width:140px}.achievement-card .achievement-metric+span{margin-top:21px}.achievement-card h3{font-size:1.7rem}
+  .achiever-roster{padding-top:22px}.achiever-roster-head h3{font-size:2.05rem}.achiever-group-title{gap:10px}.achiever-group-title h4{font-size:1.2rem}
+  .sports-showcase{margin-inline:-15px}.sports-photo img{height:255px}.sports-copy{padding:27px 20px}.sports-copy h3{font-size:2rem}.sports-tags span{padding:7px 9px;font-size:.57rem}
+  .impact-grid{gap:12px}.impact-grid article{min-height:330px}.impact-grid strong{font-size:3.25rem}.impact-grid h3{font-size:1.02rem}
+  .stream-card{padding:22px}.stream-code{font-size:2.6rem}.stream-card h3{font-size:1.42rem}.stream-card p{font-size:.88rem}.stream-card>a{min-height:44px;font-size:.65rem}
+  .facility-main,.facility-side{min-height:330px}.facility-grid h3{font-size:2rem}.facility-grid p{font-size:.88rem}
+  .full-notes{gap:12px}.note-card img{height:260px}.note-card div{padding:22px}.note-card h2{font-size:1.85rem}.note-card p{font-size:.88rem;line-height:1.6}
+  .faculty-groups{gap:44px}.faculty-group-heading{align-items:center;margin-bottom:15px}.faculty-group-heading h3{font-size:1.3rem}.faculty-group-heading span{font-size:.5rem}.faculty-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.faculty-card div{min-height:108px;padding:11px}.faculty-card b{font-size:.84rem}.faculty-card span{font-size:.61rem;line-height:1.3}.faculty-card small{font-size:.57rem;line-height:1.25}
+  .testimonial-cards{grid-template-columns:1fr;gap:12px}.testimonial-cards article,.testimonial-cards article:last-child{grid-column:auto;padding:20px}.testimonial-portrait{width:68px;height:68px;flex-basis:68px}.testimonial-student b{font-size:1rem}.testimonial-cards blockquote{margin:20px 0;font-size:.94rem;line-height:1.58}
+  .events-grid{grid-template-columns:1fr;gap:12px}.event-card img{height:195px}.event-card span,.event-card h3,.event-card p,.event-card b{margin-inline:20px}.event-card h3{font-size:1.3rem}.event-card p{font-size:.86rem}.event-dialog>img{height:225px}.event-dialog>div{padding:23px 19px}.event-dialog h2{font-size:2rem}.event-dialog p{font-size:.92rem}
+  .apply{padding:50px 15px 96px}.apply form{padding:18px}.apply input,.apply select,.apply button{min-height:48px}.footer-top{grid-template-columns:1fr;gap:26px}.mobile-apply{left:7px;right:7px;bottom:7px}.mobile-apply a{min-height:48px;font-size:.72rem}
+}
+
+@media(max-width:360px){
+  .brand b{font-size:.73rem}.hero h1{font-size:2.65rem}.hero-proof span{font-size:.44rem}.faculty-track{grid-template-columns:1fr}.faculty-card img{aspect-ratio:4/4}.faculty-card div{min-height:94px}.footer-top{grid-template-columns:1fr}
+}
