@@ -3,25 +3,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   const header=document.querySelector('[data-header]');
   const menu=document.querySelector('[data-menu]');
   const nav=document.querySelector('[data-nav]');
-  const flight=document.querySelector('.brand-flight');
-  const brandTitle=document.querySelector('.brand-title');
-
-  const runIntro=()=>{
-    if(!flight||!brandTitle||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    body.classList.add('intro-running');
-    const target=brandTitle.getBoundingClientRect();
-    const dx=target.left+target.width/2-innerWidth/2;
-    const dy=target.top+target.height/2-innerHeight/2;
-    const animation=flight.animate([
-      {opacity:0,transform:'translate(-50%,-50%) perspective(900px) rotateX(-72deg) scale(1.7)',filter:'blur(10px)'},
-      {opacity:1,transform:'translate(-50%,-50%) perspective(900px) rotateX(0deg) scale(1)',filter:'blur(0)',offset:.27},
-      {opacity:1,transform:'translate(-50%,-50%) perspective(900px) rotateX(0deg) scale(1)',offset:.58},
-      {opacity:0,transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.18)`,filter:'blur(1px)'}
-    ],{duration:1900,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});
-    animation.finished.finally(()=>body.classList.remove('intro-running'));
-  };
-  setTimeout(runIntro,180);
-
   const updateHeader=()=>header?.classList.toggle('scrolled',scrollY>24);
   updateHeader(); addEventListener('scroll',updateHeader,{passive:true});
   menu?.addEventListener('click',()=>{
