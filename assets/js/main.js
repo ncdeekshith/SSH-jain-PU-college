@@ -47,17 +47,16 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(achieverRoot&&window.ACHIEVER_GROUPS){
     achieverRoot.innerHTML=window.ACHIEVER_GROUPS.map(group=>{
       const cards=group.people.map(person=>{
-        const cropX=-(person[2]-120);
-        const cropY=-(person[3]-115);
-        return `<article class="student-card"><div class="student-portrait" role="img" aria-label="Portrait of ${person[0]}" style="--crop-x:${cropX}px;--crop-y:${cropY}px"></div><div class="student-card-copy"><b>${person[0]}</b><span>${person[1]}</span><small>${group.subtitle}</small></div></article>`;
+        const percentage=Number(person.percentage).toFixed(2).replace(/\.00$/,'');
+        const uniformPhoto=person.photo.replace('assets/images/results/','assets/images/results-uniform/');
+        return `<article class="student-card"><div class="student-photo"><img src="${uniformPhoto}" alt="Portrait of ${person.name}" loading="lazy" decoding="async"><span>Rank ${person.rank}</span></div><div class="student-card-copy"><b>${person.name}</b><div class="student-result"><strong>${person.marks}<small>/600</small></strong><span>${percentage}%</span></div><small>${group.title} · II PUC 2025–26</small></div></article>`;
       }).join('');
-      return `<section class="achiever-group"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title}</h4></div><small>Continuous automatic slider · swipe or scroll →</small></div><div class="achiever-track" tabindex="0" aria-label="${group.title} continuous automatic carousel">${cards}</div></section>`;
+      return `<section class="achiever-group" data-stream="${group.slug}"><div class="achiever-group-title"><div><span>${group.subtitle}</span><h4>${group.title} result roster</h4></div><small>Uniform studio portraits · continuous slider</small></div><div class="achiever-track" tabindex="0" aria-label="${group.title} student results continuous carousel">${cards}</div></section>`;
     }).join('');
 
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       achieverRoot.querySelectorAll('.achiever-track').forEach(track=>{
         let inView=false;
-        let spriteReady=false;
         let interacting=false;
         let lastTime=0;
         const originals=[...track.children];
@@ -74,13 +73,10 @@ document.addEventListener('DOMContentLoaded',()=>{
           inView=entry.isIntersecting;
         }),{threshold:.25});
         carouselObserver.observe(track);
-        const sprite=new Image();
-        sprite.addEventListener('load',()=>{spriteReady=true},{once:true});
-        sprite.src='assets/images/achievers-2025-26-web.jpg';
         const move=timestamp=>{
           const elapsed=lastTime?Math.min(timestamp-lastTime,64):0;
           lastTime=timestamp;
-          if(inView&&spriteReady&&!document.hidden&&!interacting){
+          if(inView&&!document.hidden&&!interacting){
             track.scrollLeft+=elapsed*.045;
             const loopWidth=track.scrollWidth/2;
             if(track.scrollLeft>=loopWidth) track.scrollLeft-=loopWidth;

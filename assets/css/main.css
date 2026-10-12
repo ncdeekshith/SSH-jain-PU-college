@@ -179,3 +179,30 @@ footer{background:#040d18;border-top:1px solid rgba(211,173,97,.4)}
 @media(max-width:360px){
   .brand b{font-size:.73rem}.hero h1{font-size:2.65rem}.hero-proof span{font-size:.44rem}.faculty-track{grid-template-columns:1fr}.faculty-card img{aspect-ratio:4/4}.faculty-card div{min-height:94px}.footer-top{grid-template-columns:1fr}
 }
+
+/* Results preview — original 2026 stream portraits mapped by official photo number */
+.result-stream-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 38px;border-block:1px solid rgba(255,255,255,.16)}
+.result-stream-overview span{display:flex;align-items:baseline;justify-content:center;gap:10px;padding:18px 12px;border-right:1px solid rgba(255,255,255,.16);color:#c7d0dc;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.result-stream-overview span:last-child{border-right:0}.result-stream-overview b{font:700 2rem/1 var(--serif);color:#efd384;letter-spacing:-.04em}
+.achiever-groups{gap:58px}.achiever-group{padding-top:2px}.achiever-group-title{padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.16)}
+.achiever-track{grid-auto-columns:250px;gap:16px;padding:5px 4px 24px}
+.student-card{position:relative;display:grid;grid-template-rows:auto 1fr;background:#fff;border:0;border-bottom:4px solid var(--gold);border-radius:8px;box-shadow:0 18px 42px rgba(0,0,0,.28)}
+.student-photo{position:relative;overflow:hidden;aspect-ratio:4/5;background:#d9d9d6}
+.student-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .45s ease}
+.student-card:hover .student-photo img{transform:scale(1.025)}
+.student-photo>span{position:absolute;left:12px;top:12px;padding:7px 10px;background:rgba(7,23,43,.88);border:1px solid rgba(255,255,255,.24);color:#efd384;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.student-card-copy{min-height:150px;padding:17px 17px 16px}.student-card-copy b{font:700 1.05rem/1.26 var(--serif);color:var(--ink)}
+.student-result{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:13px;padding-top:11px;border-top:1px solid var(--line)}
+.student-result strong{font:700 1.65rem/1 var(--serif);color:var(--oxblood)}.student-result strong small{display:inline;margin:0 0 2px 3px;padding:0;color:#85909d;font:700 .62rem/1 "DM Sans",sans-serif;letter-spacing:0;text-transform:none}
+.student-result>span{color:#102942;font-size:.78rem;font-weight:800}.student-card-copy>small{margin-top:auto;padding-top:15px;color:#7b8590;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase}
+.testimonial-portrait{display:block;object-fit:cover;object-position:center top;background-image:none!important}
+
+@media(max-width:760px){
+  .result-stream-overview{margin-bottom:30px}.result-stream-overview span{gap:6px;padding:14px 6px;font-size:.52rem;letter-spacing:.06em}.result-stream-overview b{font-size:1.5rem}
+  .achiever-groups{gap:42px}.achiever-group-title{display:block}.achiever-group-title>small{display:block;margin-top:7px}.achiever-track{grid-auto-columns:218px;gap:12px}.student-card-copy{min-height:138px;padding:15px}.student-card-copy b{font-size:.94rem}.student-result strong{font-size:1.45rem}
+}
+
+@media(max-width:420px){
+  .achiever-roster-head p{font-size:.86rem;line-height:1.55}.result-stream-overview{grid-template-columns:1fr}.result-stream-overview span{justify-content:flex-start;padding:11px 4px;border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}.result-stream-overview span:last-child{border-bottom:0}.result-stream-overview b{min-width:34px}
+  .achiever-track{grid-auto-columns:204px}.student-card-copy{min-height:132px}.student-photo>span{left:9px;top:9px;padding:6px 8px}
+}
