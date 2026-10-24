@@ -88,6 +88,23 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }
 
+  const sportsRoot=document.querySelector('[data-sports-groups]');
+  if(sportsRoot&&window.SPORTS_GROUPS){
+    const missingPhotos=window.SPORTS_MISSING_PHOTOS||new Set();
+    const initials=name=>name.split(/\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join('').toUpperCase();
+    sportsRoot.innerHTML=window.SPORTS_GROUPS.map((group,groupIndex)=>{
+      const cards=group.people.map(person=>{
+        const [serial,name,studentClass,achievement]=person;
+        const portrait=missingPhotos.has(serial)
+          ? `<div class="sport-person-placeholder" aria-label="Photo not supplied for ${name}"><span>${initials(name)}</span></div>`
+          : `<img src="assets/images/sports-2026-27-clean/sports-${String(serial).padStart(2,'0')}.webp" alt="Portrait of ${name}" loading="lazy">`;
+        const level=/state/i.test(achievement)?'<em>State selected</em>':/district-level selected/i.test(achievement)?'<em>District selected</em>':'';
+        return `<article class="sport-person-card">${portrait}<div class="sport-person-copy"><span class="sport-number">${String(serial).padStart(2,'0')}</span><b>${name}</b>${studentClass?`<small>${studentClass}</small>`:''}<p>${achievement}</p>${level}</div></article>`;
+      }).join('');
+      return `<section class="sports-group sports-group-${groupIndex+1}"><div class="sports-group-heading"><div><span>${String(groupIndex+1).padStart(2,'0')}</span><h4>${group.title}<small lang="kn">${group.titleKn}</small></h4></div><b>${group.people.length} students</b></div><div class="sports-card-grid">${cards}</div></section>`;
+    }).join('');
+  }
+
   const eventStories={
     freshers:{category:'Campus culture',title:'Freshers’ Welcome',image:'assets/images/event-freshers-2026.jpg',alt:'Freshers welcome cultural programme',copy:'A welcoming celebration designed to help new students meet their peers, connect with faculty and experience the creative energy of campus life through music, cultural performances and student interaction.'},
     science:{category:'Academic',title:'Science & Laboratory Day',image:'assets/images/subject-physics.jpg',alt:'Students participating in a science laboratory activity',copy:'An activity-led academic day where students explore practical demonstrations, laboratory methods and the real-world applications of Physics, Chemistry and Biology.'},
