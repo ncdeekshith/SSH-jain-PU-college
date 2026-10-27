@@ -91,14 +91,20 @@ document.addEventListener('DOMContentLoaded',()=>{
   const sportsRoot=document.querySelector('[data-sports-groups]');
   if(sportsRoot&&window.SPORTS_GROUPS){
     const missingPhotos=window.SPORTS_MISSING_PHOTOS||new Set();
-    const showOriginalSportsPhotos=new URLSearchParams(window.location.search).get('sportsPhotos')!=='clean';
+    const sportsPhotoMode=new URLSearchParams(window.location.search).get('sportsPhotos')||'ai';
+    const sportsPhotoSources={
+      ai:serial=>`assets/images/sports-ai/sports-${String(serial).padStart(2,'0')}.jpg`,
+      clean:serial=>`assets/images/sports-2026-27-clean/sports-${String(serial).padStart(2,'0')}.webp`,
+      original:serial=>`assets/images/sports-2026-27/sports-${String(serial).padStart(2,'0')}.jpeg`
+    };
+    const sportsPhotoSource=sportsPhotoSources[sportsPhotoMode]||sportsPhotoSources.ai;
     const initials=name=>name.split(/\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join('').toUpperCase();
     sportsRoot.innerHTML=window.SPORTS_GROUPS.map((group,groupIndex)=>{
       const cards=group.people.map(person=>{
         const [serial,name,studentClass,achievement]=person;
         const portrait=missingPhotos.has(serial)
           ? `<div class="sport-person-placeholder" aria-label="Photo not supplied for ${name}"><span>${initials(name)}</span></div>`
-          : `<img src="assets/images/${showOriginalSportsPhotos?'sports-2026-27':'sports-2026-27-clean'}/sports-${String(serial).padStart(2,'0')}.${showOriginalSportsPhotos?'jpeg':'webp'}" alt="Portrait of ${name}" loading="lazy">`;
+          : `<img src="${sportsPhotoSource(serial)}" alt="Portrait of ${name}" loading="lazy" decoding="async">`;
         const level=/state/i.test(achievement)?'<em>State selected</em>':/district-level selected/i.test(achievement)?'<em>District selected</em>':'';
         return `<article class="sport-person-card">${portrait}<div class="sport-person-copy"><span class="sport-number">${String(serial).padStart(2,'0')}</span><b>${name}</b>${studentClass?`<small>${studentClass}</small>`:''}<p>${achievement}</p>${level}</div></article>`;
       }).join('');
