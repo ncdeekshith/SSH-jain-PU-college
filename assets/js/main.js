@@ -112,6 +112,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     }).join('');
   }
 
+  // Dynamic faculty, result and sports cards are inserted above several deep links.
+  // Re-apply the requested anchor after those sections have their final height so
+  // phone visitors opening a shared #faculty / #events link land in the right place.
+  if(location.hash){
+    const hashTarget=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if(hashTarget) requestAnimationFrame(()=>requestAnimationFrame(()=>hashTarget.scrollIntoView({block:'start'})));
+  }
+
   const eventStories={
     freshers:{category:'Campus culture',title:'Freshers’ Welcome',image:'assets/images/event-freshers-2026.jpg',alt:'Freshers welcome cultural programme',copy:'A welcoming celebration designed to help new students meet their peers, connect with faculty and experience the creative energy of campus life through music, cultural performances and student interaction.'},
     science:{category:'Academic',title:'Science & Laboratory Day',image:'assets/images/subject-physics.jpg',alt:'Students participating in a science laboratory activity',copy:'An activity-led academic day where students explore practical demonstrations, laboratory methods and the real-world applications of Physics, Chemistry and Biology.'},

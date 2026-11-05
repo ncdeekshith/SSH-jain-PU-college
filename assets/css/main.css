@@ -46,6 +46,7 @@ body{background:var(--paper);color:var(--ink)}
 .impact-grid article{border-radius:6px;border:1px solid rgba(255,255,255,.18)}.impact-grid strong{font-family:var(--serif);color:#efd384}
 .stream-card{background:#fff!important;border-left:5px solid var(--gold);box-shadow:0 13px 34px rgba(7,23,43,.07)}.stream-code{font-family:var(--serif);color:var(--oxblood)!important}.stream-card>a{border-radius:3px;background:var(--navy)}
 .note-card{border-top:4px solid var(--oxblood)}.faculty-card{border-bottom:3px solid var(--gold)}
+#principal-note img{object-position:center 60%}
 .apply{background:linear-gradient(118deg,#4e1722,#762838);border-top:6px solid var(--gold)}.apply form{border-radius:6px;background:rgba(4,14,27,.36);border-color:rgba(255,255,255,.22)}.apply input,.apply select{border-radius:3px}.apply button{background:var(--gold);color:#0c1927}
 footer{background:#040d18;border-top:1px solid rgba(211,173,97,.4)}
 
@@ -237,3 +238,24 @@ footer{background:#040d18;border-top:1px solid rgba(211,173,97,.4)}
 @media(max-width:1080px){.sports-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.sports-roster{padding-top:58px}.sports-roster-head{display:block;margin-bottom:24px}.sports-roster-head>p{margin-top:16px}.sports-stat-strip{grid-template-columns:1fr 1fr;margin-bottom:44px}.sports-stat-strip div:nth-child(2){border-right:0}.sports-stat-strip div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.13)}.sports-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.sports-groups{gap:48px}.sport-person-copy{min-height:164px;padding:14px 12px 16px}.sport-person-copy>b{font-size:.9rem}.sport-person-copy>small{font-size:.56rem}.sport-person-copy>p{font-size:.67rem;line-height:1.42}.sports-group-heading h4{font-size:1.4rem}.sports-group-heading>b{font-size:.52rem}.sports-group-heading>div{gap:9px}}
 @media(max-width:420px){.sports-stat-strip div{min-height:96px;padding:16px}.sports-stat-strip strong{font-size:2rem}.sports-stat-strip span{font-size:.5rem}.sports-group-heading{align-items:center}.sports-group-heading>b{max-width:76px;text-align:right}.sport-person-card>img,.sport-person-placeholder{aspect-ratio:4/4.35}.sport-person-placeholder span{width:60px;height:60px;font-size:1.15rem}.sport-person-copy{min-height:172px}.sport-person-copy>p{font-size:.64rem}}
+
+/* Phone reliability: opaque full-screen menu and lighter, stable mobile rendering. */
+@media(max-width:900px){
+  .site-header{overflow:visible}
+  .site-header .brand,.site-header .menu-toggle{position:relative;z-index:3}
+  .main-nav{position:absolute;inset:100% 0 auto 0;width:100%;height:calc(100dvh - 66px);padding:22px 24px 110px;background:#061526;overflow-y:auto;z-index:2;transform:translateX(100%)}
+  .menu-open .site-header{background:#061526;border-color:rgba(255,255,255,.12);box-shadow:none}
+  .menu-open .main-nav{transform:none}
+  .main-nav a{min-height:52px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.13);font-size:clamp(1.45rem,7vw,2rem);line-height:1.15}
+  .hero-media picture,.hero-media picture img{display:block;width:100%;height:100%}
+  .hero-media picture img{object-fit:cover;object-position:center}
+}
+
+@media(max-width:420px){
+  .hero h1{font-size:clamp(2.7rem,13vw,3.35rem);line-height:1.04}
+  .hero-kn{font-size:.88rem;line-height:1.45}
+  .hero-lead{font-size:.86rem}
+  .section-intro h2,.impact-heading h2,.apply h2{overflow-wrap:anywhere}
+  .result-stream-overview span{gap:5px;padding-inline:6px;font-size:.54rem}
+  .result-stream-overview b{font-size:1.55rem}
+}
